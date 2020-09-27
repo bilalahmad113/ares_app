@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "833919398505",
+    "firebase_url": "https://ares-f71d5.firebaseio.com",
+    "project_id": "ares-f71d5",
+    "storage_bucket": "ares-f71d5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:833919398505:android:f912b4bc9306669eef28f8",
+        "android_client_info": {
+          "package_name": "com.example.aresapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "833919398505-42vkdj1cijnvlmj30cg9iag4cc9q77j4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDRNRSeQbtyDJdKm3YeB023RWlFGudGkPY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "833919398505-42vkdj1cijnvlmj30cg9iag4cc9q77j4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
