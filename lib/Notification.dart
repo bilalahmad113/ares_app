@@ -1,7 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'Navigation_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'Navigation_bar.dart';
+import 'Notificatiosmodel.dart';
 
 
 class notification extends StatefulWidget {
@@ -10,7 +13,37 @@ class notification extends StatefulWidget {
 }
 
 class _NotificationState extends State<notification> {
+
   final items =List<String>.generate(51, (i) => "item $i");
+  List<Notifications> notifications=new List();
+
+  getData() async
+  {
+    User user = FirebaseAuth.instance.currentUser;
+    FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+    CollectionReference collectionReference = firebaseFirestore.collection("Users").document(user.email).collection("notifications");
+    QuerySnapshot documentSnapshot = await collectionReference.getDocuments();
+    List<QueryDocumentSnapshot> dataSnapshot = documentSnapshot.docs;
+
+    for(var docs in dataSnapshot)
+    {
+      Notifications notification
+      =new Notifications(
+        message:docs.get('message'),
+        name: docs.get('name'),
+
+      );
+      notifications.add(notification);
+    }
+    setState(() {
+    });
+  }
+  @override
+  void initState() {
+    getData();
+    // TODO: implement initState
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -77,7 +110,7 @@ class _NotificationState extends State<notification> {
                   height: height / 1,
                   width: width / 1.01,
                   child: ListView.builder(
-                    itemCount: items.length,
+                    itemCount: notifications.length,
                     itemBuilder: (context, position) {
                       return Padding(
                         padding: const EdgeInsets.all(10.0),
@@ -115,7 +148,7 @@ class _NotificationState extends State<notification> {
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: <Widget>[
-                                      new Align(alignment: Alignment.centerLeft, child: new Text("Sohail Ahmad",
+                                      new Align(alignment: Alignment.centerLeft, child: new Text(notifications[position].name,
                                         textAlign: TextAlign.left,
                                         style: TextStyle(
                                             color: Colors.black,
@@ -123,7 +156,7 @@ class _NotificationState extends State<notification> {
                                             fontWeight: FontWeight.bold),
                                       ),),
                                       SizedBox(height: height/95,),
-                                      new Align(alignment: Alignment.centerLeft, child: new Text("Hi ! what are you doing",
+                                      new Align(alignment: Alignment.centerLeft, child: new Text(notifications[position].message,
                                         textAlign: TextAlign.left,
                                         style: TextStyle(
                                           color: Colors.black,
@@ -170,9 +203,6 @@ class _NotificationState extends State<notification> {
                   ),
                 ),
               )
-
-
-
             ],
           ),
 
